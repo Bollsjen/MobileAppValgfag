@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/inputText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Tekst her..."/>
+
+    <Button
+        android:id="@+id/saveWordBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SAVE WORD"/>
+
+    <Button
+        android:id="@+id/clearWordsBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CLEAR WORDs"/>
+
+    <Button
+        android:id="@+id/showWordsBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SHOW WORDS"/>
+
+    <TextView
+        android:id="@+id/showWordsText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No words yet" />
+
+</LinearLayout>
