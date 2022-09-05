@@ -15,8 +15,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.equals.setOnClickListener {
-            val number1 : Float = binding.number1.text.toString().toFloat()
-            val number2 : Float = binding.number2.text.toString().toFloat()
+            val number1 : Double = binding.number1.text.toString().toDouble()
+            val number2 : Double = binding.number2.text.toString().toDouble()
             val sum = number1 + number2
             binding.equalsField.setText(sum.toString())
         }
