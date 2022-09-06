@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //R.layout.activity_main
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view : View = binding.root
         setContentView(view)
@@ -122,29 +123,13 @@ class MainActivity : AppCompatActivity() {
         if(currentNumber != "") {
             val number1: Double = currentNumber.toDouble()
             if (operator == "+") {
-                if (sumNum != 0.0) {
-                    sumNum = sumNum + number1
-                } else {
-                    sumNum = number1
-                }
+                sumNum = sumNum + number1
             } else if (operator == "-") {
-                if (sumNum != 0.0) {
-                    sumNum = sumNum + number1
-                } else {
-                    sumNum = number1
-                }
+                sumNum = sumNum - number1
             } else if (operator == "*") {
-                if (sumNum != 0.0) {
-                    sumNum = sumNum + number1
-                } else {
-                    sumNum = number1
-                }
+                sumNum = sumNum * number1
             } else if (operator == "/") {
-                if (sumNum != 0.0) {
-                    sumNum = sumNum + number1
-                } else {
-                    sumNum = number1
-                }
+                sumNum = sumNum / number1
             }else{
                 binding.numberField.setText("OPERATOR ERROR")
             }
