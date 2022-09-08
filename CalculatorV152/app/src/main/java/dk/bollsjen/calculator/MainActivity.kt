@@ -1,13 +1,11 @@
-package dk.bollsjen.calculatorv15
+package dk.bollsjen.calculator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
-import dk.bollsjen.calculatorv15.databinding.ActivityMainBinding
+import dk.bollsjen.calculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -29,12 +27,12 @@ class MainActivity : AppCompatActivity() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long){
                 binding.spinner.onItemSelectedListener = this
                 operator = binding.spinner.selectedItem.toString()
+                calculate()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
 
             }
-
         }
 
         binding.equals.setOnClickListener {
@@ -43,19 +41,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun calculate(){
-        val number1 : Double = binding.number1.text.toString().toDouble()
-        val number2 : Double = binding.number2.text.toString().toDouble()
-        var result : Double = 0.0
-        if(operator == "+"){
-            result = number1 + number2
-        }else if(operator == "-"){
-            result = number1 - number2
-        }else if(operator == "x"){
-            result = number1 * number2
-        }else if(operator == "%"){
-            result = number1 / number2
-        }
+        if(binding.number1.text.toString() != "" && binding.number2.text.toString() != "") {
+            val number1: Double = binding.number1.text.toString().toDouble()
+            val number2: Double = binding.number2.text.toString().toDouble()
+            var result: Double = 0.0
+            if (operator == "+") {
+                result = number1 + number2
+            } else if (operator == "-") {
+                result = number1 - number2
+            } else if (operator == "x") {
+                result = number1 * number2
+            } else if (operator == "%") {
+                result = number1 / number2
+            }
 
-        binding.result.setText(result.toString())
+            binding.result.setText(result.toString())
+        }
     }
 }
