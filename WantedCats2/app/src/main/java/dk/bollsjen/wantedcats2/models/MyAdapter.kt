@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.imageview.ShapeableImageView
+import dk.bollsjen.wantedcats2.R
 
 class MyAdapter(private val newList: ArrayList<Cat>) : RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
@@ -20,7 +21,17 @@ class MyAdapter(private val newList: ArrayList<Cat>) : RecyclerView.Adapter<MyAd
     }
 
     class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val titleImage : ShapeableImageView = itemView.findViewById(R.id.)
+        val titleImage : ShapeableImageView = itemView.findViewById(R.id.textView_list_item)
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(view: View){
+            val position = bindingAdapterPosition
+
+            onItemClicked(position)
+        }
     }
 
 }
