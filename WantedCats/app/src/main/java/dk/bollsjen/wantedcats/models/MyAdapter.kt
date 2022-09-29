@@ -31,12 +31,14 @@ public open class MyAdapter(
         val item: Cat = items[position]
         viewHolder.catNameText.text = item.name
         viewHolder.catRewardText.text = item.reward.toString()
+        viewHolder.catPlaceText.text = item.place
     }
 
     class MyViewHolder(itemView: View, private val onItemClicked: (position: Int) -> Unit) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val catNameText: TextView = itemView.findViewById(R.id.item_card_cat_name)
         val catRewardText: TextView = itemView.findViewById(R.id.item_card_cat_reward)
+        val catPlaceText: TextView = itemView.findViewById(R.id.item_card_cat_place)
 
 
         init {

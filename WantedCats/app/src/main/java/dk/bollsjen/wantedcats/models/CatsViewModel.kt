@@ -18,6 +18,18 @@ class CatsViewModel : ViewModel() {
         repository.getPosts()
     }
 
+    fun myCats(userId: Int){
+        repository.getMyCats(userId)
+    }
+
+    fun getPlace(){
+        repository.getPlace()
+    }
+
+    fun getPlace(place: String?){
+        repository.getPlace(place)
+    }
+
     operator fun get(index: Int): Cat? {
         return booksLiveData.value?.get(index)
     }

@@ -10,14 +10,24 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import dk.bollsjen.wantedcats.databinding.ActivityMainBinding
+import dk.bollsjen.wantedcats.repositories.*
+import dk.bollsjen.wantedcats.models.*
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        lateinit var instance: MainActivity
+    }
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        instance = this
         super.onCreate(savedInstanceState)
+        Singleton.users.add(LoginInfo(1, "Fiskerbent", "1234"))
+        Singleton.users.add(LoginInfo(2, "Torsken", "1234"))
+        Singleton.users.add(LoginInfo(3, "Børge", "1234"))
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

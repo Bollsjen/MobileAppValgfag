@@ -6,12 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import dk.bollsjen.wantedcats.databinding.FragmentFirstBinding
 import dk.bollsjen.wantedcats.models.CatsViewModel
 import dk.bollsjen.wantedcats.models.MyAdapter
+import dk.bollsjen.wantedcats.repositories.*
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -21,7 +23,7 @@ class FirstFragment : Fragment() {
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
 
-    private val booksViewModel: CatsViewModel by activityViewModels()
+    private val catsViewModel: CatsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +36,7 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        booksViewModel.booksLiveData.observe(viewLifecycleOwner) { cats ->
+        catsViewModel.booksLiveData.observe(viewLifecycleOwner) { cats ->
             //Log.d("APPLE", "observer $books")
             binding.progressBar.visibility = View.GONE
             binding.recyclerView.visibility = if (cats == null) View.GONE else View.VISIBLE
@@ -58,16 +60,48 @@ class FirstFragment : Fragment() {
             }
 
             binding.fab.setOnClickListener{
-                val action = FirstFragmentDirections.actionFirstFragmentToCreateCat()
-                findNavController().navigate(action)
+                val action1 = FirstFragmentDirections.actionFirstFragmentToCreateCat(Singleton.loginToken.id)
+                val action2 = FirstFragmentDirections.actionFirstFragmentToLogin()
+
+                if(Singleton.loginToken.id != 0){
+                    findNavController().navigate(action1)
+                }else{
+                    findNavController().navigate(action2)
+                }
             }
+
+            //
+            // Chips order by dimser
+            //
+            binding.orderbyMyCatsChip.setOnClickListener {
+                catsViewModel.myCats(Singleton.loginToken.id)
+            }
+
+            binding.orderbyPlaceChip.setOnClickListener {
+                catsViewModel.getPlace()
+            }
+
+            binding.orderbyNothingChip.setOnClickListener {
+                catsViewModel.reload()
+            }
+
+            binding.searchBar.setOnQueryTextListener(object: OnQueryTextListener {
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    catsViewModel.getPlace(query)
+                    return false
+                }
+            })
         }
 
-        booksViewModel.errorMessageLiveData.observe(viewLifecycleOwner) { errorMessage ->
+        catsViewModel.errorMessageLiveData.observe(viewLifecycleOwner) { errorMessage ->
             binding.textViewMessage.text = errorMessage
         }
 
-        booksViewModel.reload()
+        catsViewModel.reload()
 
         /*binding.swiperefresh.setOnRefreshListener {
             booksViewModel.reload()

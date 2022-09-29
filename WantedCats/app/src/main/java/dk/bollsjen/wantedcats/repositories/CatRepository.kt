@@ -41,6 +41,69 @@ class CatRepository {
         })
     }
 
+    fun getMyCats(userId: Int){
+        catService.getSorted(userId).enqueue(object: Callback<List<Cat>>{
+            override fun onFailure(call: Call<List<Cat>>, t: Throwable) {
+                errorMessageLiveData.postValue(t.message)
+                Log.d("FISKERLARS", t.message!!)
+            }
+
+            override fun onResponse(call: Call<List<Cat>>, response: Response<List<Cat>>) {
+                if(response.isSuccessful){
+                    val b: List<Cat>? =response.body()
+                    catsLiveData.postValue(b)
+                    errorMessageLiveData.postValue("")
+                }else{
+                    val message =response.code().toString() + " " +response.message()
+                    errorMessageLiveData.postValue(message)
+                    Log.d("FISKERLARS", response.toString())
+                }
+            }
+        })
+    }
+
+    fun getPlace(){
+        catService.getSorted("place").enqueue(object: Callback<List<Cat>>{
+            override fun onFailure(call: Call<List<Cat>>, t: Throwable) {
+                errorMessageLiveData.postValue(t.message)
+                Log.d("FISKERLARS", t.message!!)
+            }
+
+            override fun onResponse(call: Call<List<Cat>>, response: Response<List<Cat>>) {
+                if(response.isSuccessful){
+                    val b: List<Cat>? =response.body()
+                    catsLiveData.postValue(b)
+                    errorMessageLiveData.postValue("")
+                }else{
+                    val message =response.code().toString() + " " +response.message()
+                    errorMessageLiveData.postValue(message)
+                    Log.d("FISKERLARS", response.toString())
+                }
+            }
+        })
+    }
+
+    fun getPlace(place: String?){
+        catService.getByPlace(place).enqueue(object: Callback<List<Cat>>{
+            override fun onFailure(call: Call<List<Cat>>, t: Throwable) {
+                errorMessageLiveData.postValue(t.message)
+                Log.d("FISKERLARS", t.message!!)
+            }
+
+            override fun onResponse(call: Call<List<Cat>>, response: Response<List<Cat>>) {
+                if(response.isSuccessful){
+                    val b: List<Cat>? =response.body()
+                    catsLiveData.postValue(b)
+                    errorMessageLiveData.postValue("")
+                }else{
+                    val message =response.code().toString() + " " +response.message()
+                    errorMessageLiveData.postValue(message)
+                    Log.d("FISKERLARS", response.toString())
+                }
+            }
+        })
+    }
+
     fun add(cat: Cat) {
         catService.saveCat(cat).enqueue(object : Callback<Cat> {
             override fun onResponse(call: Call<Cat>, response: Response<Cat>) {

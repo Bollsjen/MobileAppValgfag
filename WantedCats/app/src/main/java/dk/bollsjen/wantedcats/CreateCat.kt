@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import dk.bollsjen.wantedcats.databinding.FragmentCreateCatBinding
 import dk.bollsjen.wantedcats.models.Cat
@@ -20,6 +21,7 @@ class CreateCat : Fragment() {
     private val binding get() = _binding!!
 
     private val catsViewModel: CatsViewModel by activityViewModels()
+    private val args: CreateCatArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,8 +40,9 @@ class CreateCat : Fragment() {
             val place: String = binding.creatCatPlace.text.toString()
             val reward: Int = Integer.parseInt(binding.createCatReward.text.toString())
             val currentDate = System.currentTimeMillis() / 1000
+            val userId: Int = args.userId
 
-            val cat: Cat = Cat(0,name, desc,place,reward,reward,currentDate,"")
+            val cat: Cat = Cat(0,name, desc,place,reward,userId,currentDate,"")
 
             catsViewModel.add(cat)
             findNavController().navigate(R.id.action_createCat_to_FirstFragment)

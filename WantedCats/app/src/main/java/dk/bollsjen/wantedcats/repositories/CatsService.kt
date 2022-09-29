@@ -11,6 +11,18 @@ interface CatsService {
     @GET("cats/{catId}")
     fun getCatById(@Path("catId") catId: Int):Call<Cat>
 
+    @GET("cats")
+    fun getSorted(@Query("userId") userId: Int):Call<List<Cat>>
+
+    @GET("cats")
+    fun getSorted(@Query("sort_by") place: String):Call<List<Cat>>
+
+    @GET("cats")
+    fun getByPlace(@Query("place") place: String?): Call<List<Cat>>
+
+    @GET("cats")
+    fun getSorted(@Query("userId") userId: Int, @Query("place") place: String):Call<List<Cat>>
+
     @POST("cats")
     fun saveCat(@Body cat: Cat): Call<Cat>
 

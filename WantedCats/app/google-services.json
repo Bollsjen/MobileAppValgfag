@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "18335884021",
-    "project_id": "wantedcats-e9149",
-    "storage_bucket": "wantedcats-e9149.appspot.com"
+    "project_number": "950590820413",
+    "project_id": "wantedcats2",
+    "storage_bucket": "wantedcats2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:18335884021:android:67525838d7cd70e2249bbc",
+        "mobilesdk_app_id": "1:950590820413:android:1e2cbe1e27eee8ebdd1a54",
         "android_client_info": {
-          "package_name": "dk.bollsjen.watedcats"
+          "package_name": "dk.bollsjen.wantedcats"
         }
       },
       "oauth_client": [
         {
-          "client_id": "18335884021-emfjulhfkp8p7kj5vc00447kbt4he19a.apps.googleusercontent.com",
+          "client_id": "950590820413-rr01gmm585d23u975j2ikjgaq22ke8ne.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyATCw3yIIm1JhdPbQ8Ed4RTwAZ8GnrLDOo"
+          "current_key": "AIzaSyCkpIp5nyaciSEuEtRA9MHkptnLy5dWcMY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "18335884021-emfjulhfkp8p7kj5vc00447kbt4he19a.apps.googleusercontent.com",
+              "client_id": "950590820413-rr01gmm585d23u975j2ikjgaq22ke8ne.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
