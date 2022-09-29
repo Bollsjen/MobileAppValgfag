@@ -1,5 +1,6 @@
 package dk.bollsjen.wantedcats.models
 
+import java.time.LocalDate
 import java.util.*
 
 data class Cat (
@@ -9,6 +10,6 @@ data class Cat (
     val place: String,
     val reward: Int,
     val userId: Int,
-    val data: Date,
+    val date: Long,
     val pictureUrl: String
     )

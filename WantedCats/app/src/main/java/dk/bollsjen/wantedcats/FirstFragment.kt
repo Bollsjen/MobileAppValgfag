@@ -45,12 +45,12 @@ class FirstFragment : Fragment() {
                     findNavController().navigate(action /*R.id.action_FirstFragment_to_SecondFragment*/)
                 }
                 // binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-                var columns = 2
+                var columns = 1
                 val currentOrientation = this.resources.configuration.orientation
                 if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    columns = 4
-                } else if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
                     columns = 2
+                } else if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+                    columns = 1
                 }
                 binding.recyclerView.layoutManager = GridLayoutManager(this.context, columns)
 

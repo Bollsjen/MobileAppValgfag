@@ -31,13 +31,19 @@
         <argument
             android:name="position"
             app:argType="integer"/>
-        <action
-            android:id="@+id/action_SecondFragment_to_createCat"
-            app:destination="@id/createCat" />
     </fragment>
     <fragment
         android:id="@+id/createCat"
         android:name="dk.bollsjen.wantedcats.CreateCat"
         android:label="fragment_create_cat"
-        tools:layout="@layout/fragment_create_cat" />
+        tools:layout="@layout/fragment_create_cat" >
+        <action
+            android:id="@+id/action_createCat_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/login"
+        android:name="dk.bollsjen.wantedcats.Login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
 </navigation>

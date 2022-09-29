@@ -1,7 +1,6 @@
 package dk.bollsjen.wantedcats
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import dk.bollsjen.wantedcats.databinding.FragmentSecondBinding
 import dk.bollsjen.wantedcats.models.CatsViewModel
+import java.text.SimpleDateFormat
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -36,17 +36,27 @@ class SecondFragment : Fragment() {
         val position = secondFragmentArgs.position
         val cat = catsViewModel[position]
         if (cat == null) {
-            binding.catName.text = "No such book!"
+            binding.editCatName.setText("No cat was found")
             return
         }
-        binding.catName.setText(cat.name)
-        binding.catDesc.setText(cat.description.toString())
-        binding.catPrice.setText(cat.reward.toString())
+        binding.editCatName.setText(cat.name)
+        binding.editCatDescription.setText(cat.description)
+        binding.editCatPlace.setText(cat.place)
+        binding.editCatReward.setText(cat.reward.toString())
+        val simpleDate = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        val currentDate = simpleDate.format(cat.date * 1000)
+        binding.editCatDate.setText(currentDate.toString())
+        binding.editCatDate.setRawInputType(0)
 
-        binding.back.setOnClickListener {
+        binding.backToCatList.setOnClickListener {
             // findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
             // https://stackoverflow.com/questions/60003039/why-android-navigation-component-screen-not-go-back-to-previous-fragment-but-a-m
             findNavController().popBackStack()
+        }
+
+        binding.deleteCatBtn.setOnClickListener{
+            catsViewModel.delete(cat.id)
+            //findNavController().popBackStack()
         }
 
         /*binding.buttonDelete.setOnClickListener {

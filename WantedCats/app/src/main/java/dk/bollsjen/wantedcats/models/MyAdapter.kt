@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import dk.bollsjen.wantedcats.R
+import dk.bollsjen.wantedcats.models.*
 
-class MyAdapter<T>(
-    private val items: List<T>,
+public open class MyAdapter(
+    private val items: List<Cat>,
     private val onItemClicked: (position: Int) -> Unit
 ) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
@@ -27,12 +28,16 @@ class MyAdapter<T>(
     override fun onBindViewHolder(viewHolder: MyViewHolder, position: Int) {
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.textView.text = items[position].toString()
+        val item: Cat = items[position]
+        viewHolder.catNameText.text = item.name
+        viewHolder.catRewardText.text = item.reward.toString()
     }
 
     class MyViewHolder(itemView: View, private val onItemClicked: (position: Int) -> Unit) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        val textView: TextView = itemView.findViewById(R.id.textView_list_item)
+        val catNameText: TextView = itemView.findViewById(R.id.item_card_cat_name)
+        val catRewardText: TextView = itemView.findViewById(R.id.item_card_cat_reward)
+
 
         init {
             itemView.setOnClickListener(this)
