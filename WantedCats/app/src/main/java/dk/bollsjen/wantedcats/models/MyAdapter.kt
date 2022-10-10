@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import dk.bollsjen.wantedcats.R
 import dk.bollsjen.wantedcats.models.*
+import java.text.SimpleDateFormat
 
 public open class MyAdapter(
     private val items: List<Cat>,
@@ -32,6 +33,9 @@ public open class MyAdapter(
         viewHolder.catNameText.text = item.name
         viewHolder.catRewardText.text = item.reward.toString()
         viewHolder.catPlaceText.text = item.place
+        val simpleDate = SimpleDateFormat("dd/M/yyyy")
+        val currentDate = simpleDate.format(item.date * 1000)
+        viewHolder.catDateText.text = currentDate
     }
 
     class MyViewHolder(itemView: View, private val onItemClicked: (position: Int) -> Unit) :
@@ -39,6 +43,7 @@ public open class MyAdapter(
         val catNameText: TextView = itemView.findViewById(R.id.item_card_cat_name)
         val catRewardText: TextView = itemView.findViewById(R.id.item_card_cat_reward)
         val catPlaceText: TextView = itemView.findViewById(R.id.item_card_cat_place)
+        val catDateText: TextView = itemView.findViewById(R.id.item_card_cat_date)
 
 
         init {

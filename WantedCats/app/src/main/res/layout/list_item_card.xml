@@ -23,7 +23,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/item_card_cat_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,8 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="TextView"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
+            app:layout_constraintStart_toEndOf="@+id/item_card_cat_image"
+            app:layout_constraintTop_toTopOf="@+id/item_card_cat_image" />
 
         <TextView
             android:id="@+id/item_card_cat_reward"
@@ -57,6 +57,16 @@
             android:text="TextView"
             app:layout_constraintStart_toStartOf="@+id/item_card_cat_reward"
             app:layout_constraintTop_toBottomOf="@+id/item_card_cat_reward" />
+
+        <TextView
+            android:id="@+id/item_card_cat_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/item_card_cat_place"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

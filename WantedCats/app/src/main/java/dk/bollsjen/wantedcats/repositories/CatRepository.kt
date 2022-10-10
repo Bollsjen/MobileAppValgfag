@@ -1,6 +1,7 @@
 package dk.bollsjen.wantedcats.repositories
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import dk.bollsjen.wantedcats.models.Cat
 import retrofit2.*
@@ -10,7 +11,8 @@ class CatRepository {
     private val url = "https://anbo-restlostcats.azurewebsites.net/api/"
 
     private val catService : CatsService
-    val catsLiveData : MutableLiveData<List<Cat>> =MutableLiveData<List<Cat>>()
+    var catsLiveData : MutableLiveData<List<Cat>> =MutableLiveData<List<Cat>>()
+    var catsOriginalData: MutableLiveData<List<Cat>> = MutableLiveData<List<Cat>>()
     val errorMessageLiveData : MutableLiveData<String> = MutableLiveData()
     val updateMessageLiveData : MutableLiveData<String> = MutableLiveData()
 
@@ -24,49 +26,60 @@ class CatRepository {
         catService.getAllCats().enqueue(object: Callback<List<Cat>>{
             override fun onFailure(call: Call<List<Cat>>, t: Throwable) {
                 errorMessageLiveData.postValue(t.message)
-                Log.d("FISKERLARS", t.message!!)
+                Log.d("FISKERLARS1", t.message!!)
             }
 
             override fun onResponse(call: Call<List<Cat>>, response: Response<List<Cat>>) {
                 if(response.isSuccessful){
                     val b: List<Cat>? =response.body()
                     catsLiveData.postValue(b)
+                    catsOriginalData.postValue(b)
                     errorMessageLiveData.postValue("")
                 }else{
                     val message =response.code().toString() + " " +response.message()
                     errorMessageLiveData.postValue(message)
-                    Log.d("FISKERLARS", message)
+                    Log.d("FISKERLARS1", message)
                 }
             }
         })
     }
 
-    fun getMyCats(userId: Int){
-        catService.getSorted(userId).enqueue(object: Callback<List<Cat>>{
+    fun sortByList(b: List<Cat>?){
+        if(b != null){
+            catsLiveData.postValue(b)
+            errorMessageLiveData.postValue("")
+        }else{
+            errorMessageLiveData.postValue("")
+        }
+    }
+
+    fun getMyCats(email: String){
+        catService.getSorted(email).enqueue(object: Callback<List<Cat>>{
             override fun onFailure(call: Call<List<Cat>>, t: Throwable) {
                 errorMessageLiveData.postValue(t.message)
-                Log.d("FISKERLARS", t.message!!)
+                Log.d("FISKERLARS2", t.message!!)
             }
 
             override fun onResponse(call: Call<List<Cat>>, response: Response<List<Cat>>) {
                 if(response.isSuccessful){
                     val b: List<Cat>? =response.body()
                     catsLiveData.postValue(b)
+                    catsOriginalData.postValue(b)
                     errorMessageLiveData.postValue("")
                 }else{
                     val message =response.code().toString() + " " +response.message()
                     errorMessageLiveData.postValue(message)
-                    Log.d("FISKERLARS", response.toString())
+                    Log.d("FISKERLAR2", response.toString())
                 }
             }
         })
     }
 
-    fun getPlace(){
-        catService.getSorted("place").enqueue(object: Callback<List<Cat>>{
+    fun getSorted(filter: String){
+        catService.getByPlace(filter).enqueue(object: Callback<List<Cat>>{
             override fun onFailure(call: Call<List<Cat>>, t: Throwable) {
                 errorMessageLiveData.postValue(t.message)
-                Log.d("FISKERLARS", t.message!!)
+                Log.d("FISKERLARS3", t.message!!)
             }
 
             override fun onResponse(call: Call<List<Cat>>, response: Response<List<Cat>>) {
@@ -77,7 +90,7 @@ class CatRepository {
                 }else{
                     val message =response.code().toString() + " " +response.message()
                     errorMessageLiveData.postValue(message)
-                    Log.d("FISKERLARS", response.toString())
+                    Log.d("FISKERLARS3", response.toString())
                 }
             }
         })
@@ -87,7 +100,7 @@ class CatRepository {
         catService.getByPlace(place).enqueue(object: Callback<List<Cat>>{
             override fun onFailure(call: Call<List<Cat>>, t: Throwable) {
                 errorMessageLiveData.postValue(t.message)
-                Log.d("FISKERLARS", t.message!!)
+                Log.d("FISKERLARS4", t.message!!)
             }
 
             override fun onResponse(call: Call<List<Cat>>, response: Response<List<Cat>>) {
@@ -98,7 +111,28 @@ class CatRepository {
                 }else{
                     val message =response.code().toString() + " " +response.message()
                     errorMessageLiveData.postValue(message)
-                    Log.d("FISKERLARS", response.toString())
+                    Log.d("FISKERLARS4", response.toString())
+                }
+            }
+        })
+    }
+
+    fun sortByReward(){
+        catService.getSortByReward("reward").enqueue(object: Callback<List<Cat>>{
+            override fun onFailure(call: Call<List<Cat>>, t: Throwable) {
+                errorMessageLiveData.postValue(t.message)
+                Log.d("FISKERLARS4", t.message!!)
+            }
+
+            override fun onResponse(call: Call<List<Cat>>, response: Response<List<Cat>>) {
+                if(response.isSuccessful){
+                    val b: List<Cat>? =response.body()
+                    catsLiveData.postValue(b)
+                    errorMessageLiveData.postValue("")
+                }else{
+                    val message =response.code().toString() + " " +response.message()
+                    errorMessageLiveData.postValue(message)
+                    Log.d("FISKERLARS4", response.toString())
                 }
             }
         })

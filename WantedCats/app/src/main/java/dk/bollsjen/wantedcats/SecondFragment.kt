@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import dk.bollsjen.wantedcats.databinding.FragmentSecondBinding
 import dk.bollsjen.wantedcats.models.CatsViewModel
 import java.text.SimpleDateFormat
@@ -19,12 +21,14 @@ class SecondFragment : Fragment() {
     private var _binding: FragmentSecondBinding? = null
     private val binding get() = _binding!!
     private val catsViewModel: CatsViewModel by activityViewModels()
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        auth = FirebaseAuth.getInstance()
         return binding.root
     }
 
@@ -35,18 +39,29 @@ class SecondFragment : Fragment() {
         val secondFragmentArgs: SecondFragmentArgs = SecondFragmentArgs.fromBundle(bundle)
         val position = secondFragmentArgs.position
         val cat = catsViewModel[position]
+
+        if(auth.currentUser != null && cat != null){
+            if(auth.currentUser!!.email == cat.userId){
+                binding.editCatBtn.visibility = View.VISIBLE
+            }else{
+                binding.editCatBtn.visibility = View.GONE
+            }
+        }else{
+            binding.editCatBtn.visibility = View.GONE
+        }
+
         if (cat == null) {
-            binding.editCatName.setText("No cat was found")
+            binding.showCatName.setText("No cat was found")
             return
         }
-        binding.editCatName.setText(cat.name)
-        binding.editCatDescription.setText(cat.description)
-        binding.editCatPlace.setText(cat.place)
-        binding.editCatReward.setText(cat.reward.toString())
+        binding.showCatName.setText(cat.name)
+        binding.showCatDescription.setText(cat.description)
+        binding.showCatPlace.setText(cat.place)
+        binding.showCatReward.setText(cat.reward.toString())
         val simpleDate = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
         val currentDate = simpleDate.format(cat.date * 1000)
-        binding.editCatDate.setText(currentDate.toString())
-        binding.editCatDate.setRawInputType(0)
+        binding.showCatDate.setText(currentDate.toString())
+        binding.showCatDate.setRawInputType(0)
 
         binding.backToCatList.setOnClickListener {
             // findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
@@ -54,31 +69,10 @@ class SecondFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        binding.deleteCatBtn.setOnClickListener{
-            catsViewModel.delete(cat.id)
-            //findNavController().popBackStack()
+        binding.editCatBtn.setOnClickListener{
+            val cation = SecondFragmentDirections.actionSecondFragmentToEditCat(position)
+            findNavController().navigate(cation)
         }
-
-        /*binding.buttonDelete.setOnClickListener {
-            booksViewModel.delete(book.id)
-            findNavController().popBackStack()
-        }*/
-
-        /*binding.buttonUpdate.setOnClickListener {
-            val title = binding.editTextTitle.text.toString().trim()
-            //val publisher = binding.editTextPublisher.text.toString().trim()
-            //val author = binding.editTextAuthor.text.toString().trim()
-            val price = binding.editTextPrice.text.toString().trim().toDouble()
-            val updatedBook = Book(book.id, title,  price)
-            Log.d("APPLE", "update $updatedBook")
-            booksViewModel.update(updatedBook)
-            findNavController().popBackStack()
-        }*/
-
-
-        /*binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-        }*/
     }
 
     override fun onDestroyView() {

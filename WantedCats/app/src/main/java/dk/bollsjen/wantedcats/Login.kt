@@ -10,9 +10,13 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dk.bollsjen.wantedcats.databinding.FragmentLoginBinding
 import dk.bollsjen.wantedcats.loginController.AuthenticationLogin
 import dk.bollsjen.wantedcats.models.CatsViewModel
+import dk.bollsjen.wantedcats.models.LoginInfo
+import dk.bollsjen.wantedcats.repositories.Singleton
 
 
 class Login : Fragment() {
@@ -20,7 +24,7 @@ class Login : Fragment() {
     private val binding get() = _binding!!
 
     private val catsViewModel: CatsViewModel by activityViewModels()
-    private var mAuth: FirebaseAuth? = null
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,27 +32,34 @@ class Login : Fragment() {
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-        mAuth = FirebaseAuth.getInstance()
+        auth = FirebaseAuth.getInstance()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if(auth.currentUser != null) {
+            //binding.loginErrorText.text = Firebase.auth.currentUser?.email
+            findNavController().navigate(R.id.action_login_to_createCat)
+        }
+
         binding.loginBtn.setOnClickListener{
-            val username: String = binding.loginUsernameField.text.toString()
+            val email: String = binding.loginUsernameField.text.toString()
             val password: String = binding.loginPasswordField.text.toString()
 
-            /*val info: LoginInfo = Singleton.getyserByInfo(LoginInfo(0,username,password))
+            /*val info: LoginInfo = Singleton.getUserByInfo(LoginInfo(0,email,password))
 
-            if(info != LoginInfo(0,username,password) && info.id != 0) {
+            if(info != LoginInfo(0,email,password) && info.id != 0) {
                 Singleton.loginToken = info
                 findNavController().navigate(LoginDirections.actionLoginToCreateCat(info.id))
             }
             else { binding.loginErrorText.setText("Wrong username or password") }*/
-
-            val controller: NavController = Navigation.findNavController(MainActivity.instance, R.id.FirstFragment)
-            AuthenticationLogin.signIn(username,password, controller)
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    findNavController().navigate(R.id.action_login_to_createCat)
+                }
+            }
         }
 
         binding.loginSignupBtn.setOnClickListener{

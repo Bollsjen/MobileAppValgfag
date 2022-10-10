@@ -34,6 +34,9 @@
         <argument
             android:name="position"
             app:argType="integer"/>
+        <action
+            android:id="@+id/action_SecondFragment_to_editCat"
+            app:destination="@id/editCat" />
     </fragment>
     <fragment
         android:id="@+id/createCat"
@@ -68,5 +71,17 @@
         <action
             android:id="@+id/action_signup_to_login"
             app:destination="@id/login" />
+    </fragment>
+    <fragment
+        android:id="@+id/editCat"
+        android:name="dk.bollsjen.wantedcats.EditCat"
+        android:label="fragment_edit_cat"
+        tools:layout="@layout/fragment_edit_cat" >
+        <action
+            android:id="@+id/action_editCat_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <argument
+            android:name="position"
+            app:argType="integer"/>
     </fragment>
 </navigation>

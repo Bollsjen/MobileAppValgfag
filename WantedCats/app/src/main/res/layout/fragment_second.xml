@@ -6,22 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".SecondFragment">
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Cat Show"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
-        android:id="@+id/edit_cat_name"
+        android:id="@+id/show_cat_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <EditText
-        android:id="@+id/edit_cat_description"
+        android:id="@+id/show_cat_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -30,12 +42,12 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="@+id/edit_cat_name"
-        app:layout_constraintStart_toStartOf="@+id/edit_cat_name"
-        app:layout_constraintTop_toBottomOf="@+id/edit_cat_name" />
+        app:layout_constraintEnd_toEndOf="@+id/show_cat_name"
+        app:layout_constraintStart_toStartOf="@+id/show_cat_name"
+        app:layout_constraintTop_toBottomOf="@+id/show_cat_name" />
 
     <EditText
-        android:id="@+id/edit_cat_place"
+        android:id="@+id/show_cat_place"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -44,12 +56,12 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="@+id/edit_cat_description"
-        app:layout_constraintStart_toStartOf="@+id/edit_cat_description"
-        app:layout_constraintTop_toBottomOf="@+id/edit_cat_description" />
+        app:layout_constraintEnd_toEndOf="@+id/show_cat_description"
+        app:layout_constraintStart_toStartOf="@+id/show_cat_description"
+        app:layout_constraintTop_toBottomOf="@+id/show_cat_description" />
 
     <EditText
-        android:id="@+id/edit_cat_reward"
+        android:id="@+id/show_cat_reward"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -58,45 +70,37 @@
         android:ems="10"
         android:inputType="numberDecimal"
         android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="@+id/edit_cat_place"
-        app:layout_constraintStart_toStartOf="@+id/edit_cat_place"
-        app:layout_constraintTop_toBottomOf="@+id/edit_cat_place"
+        app:layout_constraintEnd_toEndOf="@+id/show_cat_place"
+        app:layout_constraintStart_toStartOf="@+id/show_cat_place"
+        app:layout_constraintTop_toBottomOf="@+id/show_cat_place"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
-        android:id="@+id/delete_cat_btn"
+        android:id="@+id/edit_cat_btn"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="DELETE"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_cat_date" />
-
-    <Button
-        android:id="@+id/update_cat_btn"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="UPDATE"
+        android:layout_marginTop="80dp"
+        android:backgroundTint="#E3C21E"
+        android:text="EDIT"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/delete_cat_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/show_cat_date" />
 
     <Button
         android:id="@+id/back_to_cat_list"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#354FF3"
         android:text="BACK"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/update_cat_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_cat_btn" />
 
     <EditText
-        android:id="@+id/edit_cat_date"
+        android:id="@+id/show_cat_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -105,8 +109,8 @@
         android:editable="false"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/edit_cat_reward"
-        app:layout_constraintStart_toStartOf="@+id/edit_cat_reward"
-        app:layout_constraintTop_toBottomOf="@+id/edit_cat_reward" />
+        app:layout_constraintEnd_toEndOf="@+id/show_cat_reward"
+        app:layout_constraintStart_toStartOf="@+id/show_cat_reward"
+        app:layout_constraintTop_toBottomOf="@+id/show_cat_reward" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

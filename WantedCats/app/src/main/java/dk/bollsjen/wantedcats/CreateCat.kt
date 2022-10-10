@@ -10,15 +10,20 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dk.bollsjen.wantedcats.databinding.FragmentCreateCatBinding
 import dk.bollsjen.wantedcats.models.Cat
 import dk.bollsjen.wantedcats.models.CatsViewModel
 import dk.bollsjen.wantedcats.models.MyAdapter
+import dk.bollsjen.wantedcats.repositories.Singleton
 import java.text.SimpleDateFormat
 
 class CreateCat : Fragment() {
     private var _binding: FragmentCreateCatBinding? = null
     private val binding get() = _binding!!
+    private lateinit var auth: FirebaseAuth
 
     private val catsViewModel: CatsViewModel by activityViewModels()
     private val args: CreateCatArgs by navArgs()
@@ -28,19 +33,24 @@ class CreateCat : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCreateCatBinding.inflate(inflater, container, false)
+        auth = FirebaseAuth.getInstance()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.createCatCreatBtn.setOnClickListener{
+        binding.createCatBtn.setOnClickListener{
             val name: String = binding.createCatName.text.toString()
             val desc: String = binding.createCatDescription.text.toString()
-            val place: String = binding.creatCatPlace.text.toString()
+            val place: String = binding.createCatPlace.text.toString()
             val reward: Int = Integer.parseInt(binding.createCatReward.text.toString())
             val currentDate = System.currentTimeMillis() / 1000
-            val userId: Int = args.userId
+            var userId: String? = auth.currentUser?.email
+
+            if(userId == null){
+                userId = ""
+            }
 
             val cat: Cat = Cat(0,name, desc,place,reward,userId,currentDate,"")
 

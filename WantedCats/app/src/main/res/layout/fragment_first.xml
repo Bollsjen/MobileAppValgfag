@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/filter_to_reward_amount_field"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FirstFragment">
@@ -14,12 +15,80 @@
         <SearchView
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+        </SearchView>
 
         <View
             android:id="@+id/view"
             android:layout_width="wrap_content"
             android:layout_height="1dp" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true">
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/show_filter_chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="Filter" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/orderby_reset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reset" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/orderby_nothing_chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="   All   " />
+                <!--style="@style/Widget.MaterialComponents.Chip.Filter"-->
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/orderby_my_cats_chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="My cats" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/orderby_date_chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="Date went missing" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/orderby_name_chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="Cat name" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/orderby_place_chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="Place" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/orderby_rewards_chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:text="Rewards" />
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -29,41 +98,80 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/orderby_nothing_chip"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/reward_filter"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="    All    " />
+                    android:layout_margin="10dp"
+                    android:backgroundTint="#232323"
+                    android:checkable="true"
+                    android:clickable="true"
+                    app:cardBackgroundColor="#353535"
+                    app:cardCornerRadius="30dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true"
+                    app:checkedIconMargin="0dp"
+                    tools:ignore="TouchTargetSizeCheck">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/orderby_date_chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Date went missing" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/orderby_name_chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cat name" />
+                        <TextView
+                            android:id="@+id/reward_title_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingLeft="3dp"
+                            android:paddingTop="1dp"
+                            android:paddingRight="1dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/orderby_place_chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Place" />
+                        <ImageView
+                            android:id="@+id/reward_checkmark"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/mtrl_chip_text_color"
+                            app:srcCompat="@drawable/ic_mtrl_chip_checked_circle" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/orderby_rewards_chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Rewards" />
+                        <EditText
+                            android:id="@+id/reward_lower_limit_field"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:hint="Lower limit..."
+                            android:textColorHint="#FFFFFF"
+                            android:inputType="number"
+                            android:textColor="#FFFFFF" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/orderby_my_cats_chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="My cats" />
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="  To  "
+                            android:textColor="#FFFFFF" />
+
+                        <EditText
+                            android:id="@+id/reward_upper_limit_field"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:hint="Upper limit..."
+                            android:inputType="number"
+                            android:textColor="#FFFFFF"
+                            android:textColorHint="#FFFFFF" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 
@@ -83,11 +191,17 @@
                 style="?android:attr/progressBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swiperefresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         </LinearLayout>
 

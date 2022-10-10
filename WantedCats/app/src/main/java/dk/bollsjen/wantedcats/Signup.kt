@@ -27,7 +27,7 @@ class Signup : Fragment() {
     private val binding get() = _binding!!
 
     private val catsViewModel: CatsViewModel by activityViewModels()
-    private var mAuth: FirebaseAuth? = null
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +35,7 @@ class Signup : Fragment() {
     ): View {
         _binding = FragmentSignupBinding.inflate(inflater, container, false)
 
-        mAuth = FirebaseAuth.getInstance()
+        auth = FirebaseAuth.getInstance()
         return binding.root
     }
 
@@ -46,32 +46,11 @@ class Signup : Fragment() {
             val email: String = binding.signupEmailField.text.toString()
             val password: String = binding.signupPasswordField.text.toString()
 
-            mAuth?.createUserWithEmailAndPassword(email,password)?.addOnCompleteListener(
-                OnCompleteListener {
-                    @Override
-                    fun onComplete(@NotNull task: Task<AuthResult>){
-                        if(task.isSuccessful){
-                            val user: User = User(email,password)
-
-                            FirebaseAuth.getInstance().currentUser?.let { it1 ->
-                                FirebaseDatabase.getInstance().getReference("Users").child(it1.uid).setValue(user).addOnCompleteListener(
-                                    OnCompleteListener {
-                                        @Override
-                                        fun onComplete(@NotNull task: Task<Void>){
-                                            if(task.isSuccessful){
-                                                val action =
-                                                    SignupDirections.actionSignupToLogin()
-                                                findNavController().navigate(action)
-                                            }else {
-                                                Log.d("FISKERLARS", "Det gik galt")
-                                            }
-                                        }
-                                    })
-                            }
-
-                        }
-                    }
-                })
+            auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    findNavController().navigate(R.id.action_signup_to_login)
+                }
+            }
         }
     }
 

@@ -55,7 +55,7 @@
             app:layout_constraintTop_toBottomOf="@+id/create_cat_name" />
 
         <EditText
-            android:id="@+id/creat_cat_place"
+            android:id="@+id/create_cat_place"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -80,16 +80,17 @@
             android:inputType="number"
             android:minHeight="48dp"
             android:hint="Cat reward..."
-            app:layout_constraintEnd_toEndOf="@+id/creat_cat_place"
-            app:layout_constraintStart_toStartOf="@+id/creat_cat_place"
-            app:layout_constraintTop_toBottomOf="@+id/creat_cat_place"
+            app:layout_constraintEnd_toEndOf="@+id/create_cat_place"
+            app:layout_constraintStart_toStartOf="@+id/create_cat_place"
+            app:layout_constraintTop_toBottomOf="@+id/create_cat_place"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <Button
-            android:id="@+id/create_cat_creatBtn"
+            android:id="@+id/create_cat_btn"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="80dp"
+            android:backgroundTint="#32CA29"
             android:text="CREATE"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -100,10 +101,11 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:backgroundTint="#354FF3"
             android:text="BACK"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/create_cat_creatBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/create_cat_btn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
