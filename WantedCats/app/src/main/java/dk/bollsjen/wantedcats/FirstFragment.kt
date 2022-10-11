@@ -6,11 +6,9 @@ import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
 import android.view.View.OnFocusChangeListener
-import android.view.ViewGroup
 import android.widget.SearchView.OnQueryTextListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
@@ -26,6 +24,9 @@ import dk.bollsjen.wantedcats.models.CatsViewModel
 import dk.bollsjen.wantedcats.models.MyAdapter
 import dk.bollsjen.wantedcats.repositories.*
 import dk.bollsjen.wantedcats.models.*
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -43,8 +44,43 @@ class FirstFragment : Fragment() {
     var nameClicks = 0
     var rewardClicks = 0
 
+    init {
+        setHasOptionsMenu(true)
+    }
+
     override fun onStart() {
         super.onStart()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+        if(Firebase.auth.currentUser != null) {
+            var login: MenuItem = menu.findItem(R.id.action_login)
+            login.setVisible(true)
+
+            var logout: MenuItem = menu.findItem(R.id.action_logout)
+            logout.setVisible(false)
+        }else{
+            var login: MenuItem = menu.findItem(R.id.action_login)
+            login.setVisible(false)
+
+            var logout: MenuItem = menu.findItem(R.id.action_logout)
+            logout.setVisible(true)
+        }
+
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.action_login){
+            goToLogin()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateView(
@@ -53,6 +89,11 @@ class FirstFragment : Fragment() {
     ): View {
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    fun goToLogin(){
+        val action = FirstFragmentDirections.actionFirstFragmentToLogin()
+        findNavController().navigate((action))
     }
 
     @SuppressLint("ResourceType")
@@ -106,8 +147,8 @@ class FirstFragment : Fragment() {
             binding.rewardFilter.visibility = View.GONE
         }
 
-        var lowerLimit: Int = catsViewModel.getRewardLowerLimit()
-        var upperLimit: Int = catsViewModel.getRewardUpperLimit()
+        var lowerLimit: Int = Int.MAX_VALUE
+        var upperLimit: Int = 0
 
 
         binding.showFilterChip.setOnClickListener {
@@ -170,7 +211,7 @@ class FirstFragment : Fragment() {
         }
 
     binding.rewardLowerLimitField.doAfterTextChanged {
-
+        //catsViewModel.reload()
         if(binding.rewardLowerLimitField.text.toString() != "") {
             lowerLimit = binding.rewardLowerLimitField.text.toString().toInt()
         }
@@ -348,4 +389,5 @@ class FirstFragment : Fragment() {
 
         return ColorStateList(states,colors)
     }
+
 }

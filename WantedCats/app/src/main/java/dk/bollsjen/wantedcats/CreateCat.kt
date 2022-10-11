@@ -59,7 +59,7 @@ class CreateCat : Fragment() {
         }
 
         binding.createCatBackToCatList.setOnClickListener{
-            findNavController().navigate(R.id.action_createCat_to_FirstFragment)
+            findNavController().popBackStack()
         }
     }
 

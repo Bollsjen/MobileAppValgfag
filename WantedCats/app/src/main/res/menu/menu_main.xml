@@ -3,17 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="dk.bollsjen.wantedcats.MainActivity">
     <item
-        android:id="@+id/app_bar_search"
-        android:icon="@android:drawable/ic_menu_search"
-        android:title="Search"
-        app:actionViewClass="android.widget.SearchView" />
-    <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_login"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/action_login"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_login"
+        android:id="@+id/action_logout"
         android:orderInCategory="100"
         android:title="@string/action_login"
         app:showAsAction="never" />

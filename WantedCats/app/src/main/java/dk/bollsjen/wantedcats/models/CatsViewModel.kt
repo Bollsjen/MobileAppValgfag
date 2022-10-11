@@ -42,9 +42,8 @@ class CatsViewModel : ViewModel() {
     }
 
     fun getRewardUpperLimit(): Int {
-        reload()
         var limit: Int = 0
-        for(item in catsLiveData.value!!){
+        for(item in repository.catsLiveData.value!!){
             if(item.reward > limit){
                 limit = item.reward
             }
@@ -54,9 +53,8 @@ class CatsViewModel : ViewModel() {
     }
 
     fun getRewardLowerLimit(): Int {
-        reload()
         var limit: Int = Int.MAX_VALUE
-        for(item in catsLiveData.value!!){
+        for(item in repository.catsLiveData.value!!){
             if(item.reward < limit){
                 limit = item.reward
             }
