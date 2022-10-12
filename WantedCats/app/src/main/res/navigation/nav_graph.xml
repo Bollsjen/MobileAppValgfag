@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_login"
             app:destination="@id/login" />
+        <action
+            android:id="@+id/action_FirstFragment_to_logout"
+            app:destination="@id/logout" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -83,5 +86,14 @@
         <argument
             android:name="position"
             app:argType="integer"/>
+    </fragment>
+    <fragment
+        android:id="@+id/logout"
+        android:name="dk.bollsjen.wantedcats.Logout"
+        android:label="fragment_logout"
+        tools:layout="@layout/fragment_logout" >
+        <action
+            android:id="@+id/action_logout_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
     </fragment>
 </navigation>

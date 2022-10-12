@@ -6,106 +6,134 @@
     android:layout_height="match_parent"
     tools:context=".CreateCat">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/create_cat_name"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:hint="Cat name..."
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Create Cat"
-            android:textSize="28dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <EditText
+                android:id="@+id/create_cat_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:hint="Cat name..."
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-        <EditText
-            android:id="@+id/create_cat_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:lines="4"
-            android:maxLines="4"
-            android:minHeight="48dp"
-            android:hint="Cat description..."
-            app:layout_constraintEnd_toEndOf="@+id/create_cat_name"
-            app:layout_constraintStart_toStartOf="@+id/create_cat_name"
-            app:layout_constraintTop_toBottomOf="@+id/create_cat_name" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Create Cat"
+                android:textSize="28dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/create_cat_place"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            android:hint="Cat place..."
-            app:layout_constraintEnd_toEndOf="@+id/create_cat_description"
-            app:layout_constraintStart_toStartOf="@+id/create_cat_description"
-            app:layout_constraintTop_toBottomOf="@+id/create_cat_description" />
+            <EditText
+                android:id="@+id/create_cat_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:hint="Cat description..."
+                android:inputType="textPersonName"
+                android:lines="4"
+                android:maxLines="4"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="@+id/create_cat_name"
+                app:layout_constraintStart_toStartOf="@+id/create_cat_name"
+                app:layout_constraintTop_toBottomOf="@+id/create_cat_name" />
 
-        <EditText
-            android:id="@+id/create_cat_reward"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:inputType="number"
-            android:minHeight="48dp"
-            android:hint="Cat reward..."
-            app:layout_constraintEnd_toEndOf="@+id/create_cat_place"
-            app:layout_constraintStart_toStartOf="@+id/create_cat_place"
-            app:layout_constraintTop_toBottomOf="@+id/create_cat_place"
-            tools:ignore="SpeakableTextPresentCheck" />
+            <EditText
+                android:id="@+id/create_cat_place"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:hint="Cat place..."
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="@+id/create_cat_description"
+                app:layout_constraintStart_toStartOf="@+id/create_cat_description"
+                app:layout_constraintTop_toBottomOf="@+id/create_cat_description" />
 
-        <Button
-            android:id="@+id/create_cat_btn"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:backgroundTint="#32CA29"
-            android:text="CREATE"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/create_cat_reward" />
+            <EditText
+                android:id="@+id/create_cat_reward"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:hint="Cat reward..."
+                android:inputType="number"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="@+id/create_cat_place"
+                app:layout_constraintStart_toStartOf="@+id/create_cat_place"
+                app:layout_constraintTop_toBottomOf="@+id/create_cat_place"
+                tools:ignore="SpeakableTextPresentCheck" />
 
-        <Button
-            android:id="@+id/create_cat_back_to_cat_list"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:backgroundTint="#354FF3"
-            android:text="BACK"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/create_cat_btn" />
+            <Button
+                android:id="@+id/create_cat_btn"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:backgroundTint="#32CA29"
+                android:text="CREATE"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/create_cat_image" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/create_cat_back_to_cat_list"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:backgroundTint="#354FF3"
+                android:text="BACK"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/create_cat_btn" />
+
+            <Button
+                android:id="@+id/create_cat_upload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Upload image"
+                app:layout_constraintEnd_toEndOf="@+id/create_cat_reward"
+                app:layout_constraintStart_toStartOf="@+id/create_cat_reward"
+                app:layout_constraintTop_toBottomOf="@+id/create_cat_reward" />
+
+            <ImageView
+                android:id="@+id/create_cat_image"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/create_cat_upload"
+                app:layout_constraintStart_toStartOf="@+id/create_cat_upload"
+                app:layout_constraintTop_toBottomOf="@+id/create_cat_upload"
+                tools:src="@tools:sample/avatars" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 </FrameLayout>

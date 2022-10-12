@@ -61,16 +61,16 @@ class FirstFragment : Fragment() {
         inflater.inflate(R.menu.menu_main, menu)
         if(Firebase.auth.currentUser != null) {
             var login: MenuItem = menu.findItem(R.id.action_login)
-            login.setVisible(true)
-
-            var logout: MenuItem = menu.findItem(R.id.action_logout)
-            logout.setVisible(false)
-        }else{
-            var login: MenuItem = menu.findItem(R.id.action_login)
             login.setVisible(false)
 
             var logout: MenuItem = menu.findItem(R.id.action_logout)
             logout.setVisible(true)
+        }else{
+            var login: MenuItem = menu.findItem(R.id.action_login)
+            login.setVisible(true)
+
+            var logout: MenuItem = menu.findItem(R.id.action_logout)
+            logout.setVisible(false)
         }
 
         super.onCreateOptionsMenu(menu, inflater)
@@ -78,7 +78,12 @@ class FirstFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.action_login){
-            goToLogin()
+            //goToLogin()
+            val action = FirstFragmentDirections.actionFirstFragmentToLogin()
+            findNavController().navigate((action))
+        }else if(item.itemId == R.id.action_logout){
+            val action = FirstFragmentDirections.actionFirstFragmentToLogout()
+            findNavController().navigate((action))
         }
         return super.onOptionsItemSelected(item)
     }
@@ -143,84 +148,9 @@ class FirstFragment : Fragment() {
         catsViewModel.sortDate = 0
         catsViewModel.sortReward = 0
         catsViewModel.sortName = 0
-        if(!binding.showFilterChip.isChecked) {
-            binding.rewardFilter.visibility = View.GONE
-        }
 
         var lowerLimit: Int = Int.MAX_VALUE
         var upperLimit: Int = 0
-
-
-        binding.showFilterChip.setOnClickListener {
-            if(binding.showFilterChip.isChecked){
-                binding.rewardFilter.visibility = View.VISIBLE
-                binding.rewardTitleText.visibility = View.VISIBLE
-
-                binding.rewardTitleText.text = "By reward"
-                binding.rewardCheckmark.visibility = View.GONE
-                binding.rewardUpperLimitField.visibility = View.GONE
-                binding.rewardLowerLimitField.visibility = View.GONE
-            }else{
-                binding.rewardFilter.visibility = View.GONE
-            }
-        }
-
-        binding.rewardFilter.setOnClickListener {
-            if(binding.rewardTitleText.visibility == View.VISIBLE){
-                binding.rewardTitleText.visibility = View.GONE
-                binding.rewardCheckmark.visibility = View.VISIBLE
-                binding.rewardUpperLimitField.visibility = View.VISIBLE
-                binding.rewardLowerLimitField.visibility = View.VISIBLE
-            }else{
-                binding.rewardTitleText.text = "By reward"
-                binding.rewardTitleText.visibility = View.VISIBLE
-                binding.rewardCheckmark.visibility = View.GONE
-                binding.rewardUpperLimitField.visibility = View.GONE
-                binding.rewardLowerLimitField.visibility = View.GONE
-            }
-        }
-
-
-        binding.showFilterChip.setOnClickListener {
-            if(binding.showFilterChip.isChecked){
-                binding.rewardFilter.visibility = View.VISIBLE
-                binding.rewardTitleText.visibility = View.VISIBLE
-
-                binding.rewardTitleText.text = "By reward"
-                binding.rewardCheckmark.visibility = View.GONE
-                binding.rewardUpperLimitField.visibility = View.GONE
-                binding.rewardLowerLimitField.visibility = View.GONE
-            }else{
-                binding.rewardFilter.visibility = View.GONE
-            }
-        }
-
-        binding.rewardFilter.setOnClickListener {
-            if(binding.rewardTitleText.visibility == View.VISIBLE){
-                binding.rewardTitleText.visibility = View.GONE
-                binding.rewardCheckmark.visibility = View.VISIBLE
-                binding.rewardUpperLimitField.visibility = View.VISIBLE
-                binding.rewardLowerLimitField.visibility = View.VISIBLE
-            }else{
-                binding.rewardTitleText.text = "By reward"
-                binding.rewardTitleText.visibility = View.VISIBLE
-                binding.rewardCheckmark.visibility = View.GONE
-                binding.rewardUpperLimitField.visibility = View.GONE
-                binding.rewardLowerLimitField.visibility = View.GONE
-            }
-        }
-
-    binding.rewardLowerLimitField.doAfterTextChanged {
-        //catsViewModel.reload()
-        if(binding.rewardLowerLimitField.text.toString() != "") {
-            lowerLimit = binding.rewardLowerLimitField.text.toString().toInt()
-        }
-
-        if(binding.rewardUpperLimitField.text.toString() != "") {
-            upperLimit = binding.rewardUpperLimitField.text.toString().toInt()
-        }
-        catsViewModel.filterByRewards( lowerLimit, upperLimit)
-    }
 
     binding.orderbyMyCatsChip.setOnClickListener {
         catsViewModel.myCats(Firebase.auth.currentUser?.email)
