@@ -15,7 +15,8 @@
         <SearchView
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:hint="Search place...">
 
         </SearchView>
 
@@ -91,13 +92,73 @@
         </HorizontalScrollView>
 
         <HorizontalScrollView
+            android:id="@+id/filter_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.chip.ChipGroup
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/filter_cats_by_rewards"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="By Rewards"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/filter_cats_by_place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="By Place"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/filter_cats_by_dates"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="By Dates"/>
+            </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
+
+        <LinearLayout
+            android:id="@+id/filter_reward_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/filter_reward_lower_limit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Lower limit..."
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/filter_reward_upper_limit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Upper limit..."
+                android:inputType="numberDecimal" />
+
+            <Button
+                android:id="@+id/filter_reward_form_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="filter" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/filter_place_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

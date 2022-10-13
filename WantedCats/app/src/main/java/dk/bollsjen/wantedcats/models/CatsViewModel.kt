@@ -34,11 +34,17 @@ class CatsViewModel : ViewModel() {
     }
 
     fun getPlace(place: String?){
-        repository.getPlace(place)
+        if(place != "")
+            repository.getPlace(place)
+        else reload()
     }
 
     fun resetSorting(list: List<Cat>){
-        repository.sortByList(list)
+        //repository.sortByList(list)
+
+        catsLiveData = repository.catsLiveData
+
+
     }
 
     fun getRewardUpperLimit(): Int {

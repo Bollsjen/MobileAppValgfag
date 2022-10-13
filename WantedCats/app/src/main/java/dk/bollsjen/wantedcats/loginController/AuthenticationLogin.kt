@@ -17,7 +17,7 @@ sealed class AuthenticationLogin {
 
             val user = authentication.currentUser
             if(user != null) {
-                var action = LoginDirections.actionLoginToCreateCat(1)
+                var action = LoginDirections.actionLoginToFirstFragment()
                 navController.navigate(action)
             }
 
@@ -25,7 +25,7 @@ sealed class AuthenticationLogin {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         authentication.currentUser
-                        var action = LoginDirections.actionLoginToCreateCat(1)
+                        var action = LoginDirections.actionLoginToFirstFragment()
                         navController.navigate(action)
                     }
                 }

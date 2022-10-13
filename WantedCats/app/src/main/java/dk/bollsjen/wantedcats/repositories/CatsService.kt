@@ -15,7 +15,7 @@ interface CatsService {
     fun getSorted(@Query("userId") email: String):Call<List<Cat>>
 
     @GET("cats")
-    fun getByPlace(@Query("sort_by") place: String?): Call<List<Cat>>
+    fun getByPlace(@Query("place") place: String?): Call<List<Cat>>
 
     @GET("cats")
     fun getSortByReward(@Query("reward") reward: String):Call<List<Cat>>

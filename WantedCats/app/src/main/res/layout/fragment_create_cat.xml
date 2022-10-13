@@ -93,12 +93,12 @@
                 android:id="@+id/create_cat_btn"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="72dp"
                 android:backgroundTint="#32CA29"
                 android:text="CREATE"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/create_cat_image" />
+                app:layout_constraintTop_toBottomOf="@+id/create_cat_reward" />
 
             <Button
                 android:id="@+id/create_cat_back_to_cat_list"
@@ -110,28 +110,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/create_cat_btn" />
-
-            <Button
-                android:id="@+id/create_cat_upload"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="Upload image"
-                app:layout_constraintEnd_toEndOf="@+id/create_cat_reward"
-                app:layout_constraintStart_toStartOf="@+id/create_cat_reward"
-                app:layout_constraintTop_toBottomOf="@+id/create_cat_reward" />
-
-            <ImageView
-                android:id="@+id/create_cat_image"
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/create_cat_upload"
-                app:layout_constraintStart_toStartOf="@+id/create_cat_upload"
-                app:layout_constraintTop_toBottomOf="@+id/create_cat_upload"
-                tools:src="@tools:sample/avatars" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

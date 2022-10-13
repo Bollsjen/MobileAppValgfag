@@ -17,7 +17,7 @@ sealed class AuthenticationSignUp {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         authentication.currentUser
-                        var action = LoginDirections.actionLoginToCreateCat(1)
+                        var action = LoginDirections.actionLoginToFirstFragment()
                         navController.navigate(action)
                     }
                 }

@@ -6,6 +6,7 @@ import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.View.OnFocusChangeListener
@@ -26,11 +27,10 @@ import dk.bollsjen.wantedcats.repositories.*
 import dk.bollsjen.wantedcats.models.*
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
 class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
@@ -190,9 +190,10 @@ class FirstFragment : Fragment() {
         placeClicks = 0
     }
 
-    binding.orderbyNothingChip.setOnClickListener {
+    binding.orderbyReset.setOnClickListener {
         binding.orderbyMyCatsChip.isChecked = false;
         catsViewModel.reload()
+        Log.d("FISKERLARS1", "Reload")
     }
 
     binding.orderbyDateChip.setOnClickListener {
@@ -254,16 +255,23 @@ class FirstFragment : Fragment() {
                 catsViewModel.sortList()
             }
 
+        val spinnerAdapter: ArrayAdapter<String> = ArrayAdapter(activity, android.R.layout.simple_spinner_dropdown_item, R.id.filter_place_spinner)
+
             binding.searchBar.setOnQueryTextListener(object: OnQueryTextListener {
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    catsViewModel.getPlace(newText)
+                    if(newText != "")
+                        catsViewModel.reload()//catsViewModel.getPlace(newText)
+                    Log.d("FISKERLARS1", "Searchbar text change")
                     return false
                 }
 
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     catsViewModel.getPlace(query)
+                    Log.d("FISKERLARS1", "Searchbar text submit")
                     return false
                 }
+
+
             })
 
             /*if(Singleton.loginToken.email == "" || Singleton.loginToken.email == null){
@@ -277,9 +285,12 @@ class FirstFragment : Fragment() {
             if(Firebase.auth.currentUser != null){
                 binding.orderbyMyCatsChip.visibility = View.VISIBLE
                 binding.orderbyNothingChip.visibility = View.VISIBLE
+                binding.fab.visibility = View.VISIBLE
+                Snackbar.make(view, "Signedin", Snackbar.LENGTH_LONG).setAction("Action", null).show()
             }else{
                 binding.orderbyMyCatsChip.visibility = View.GONE
                 binding.orderbyNothingChip.visibility = View.GONE
+                binding.fab.visibility = View.GONE
             }
 
 

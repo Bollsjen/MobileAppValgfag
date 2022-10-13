@@ -107,7 +107,7 @@ class CreateCat : Fragment() {
                 selectedImageUri = data?.data
                 if (null != selectedImageUri) {
                     // update the preview image in the layout
-                    binding.createCatImage.setImageURI(selectedImageUri)
+                    //binding.createCatImage.setImageURI(selectedImageUri)
                 }
             }
         }

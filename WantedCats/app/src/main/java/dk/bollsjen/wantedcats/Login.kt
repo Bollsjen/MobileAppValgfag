@@ -39,11 +39,6 @@ class Login : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(auth.currentUser != null) {
-            //binding.loginErrorText.text = Firebase.auth.currentUser?.email
-            findNavController().navigate(R.id.action_login_to_createCat)
-        }
-
         binding.loginBtn.setOnClickListener{
             val email: String = binding.loginUsernameField.text.toString()
             val password: String = binding.loginPasswordField.text.toString()
@@ -57,7 +52,7 @@ class Login : Fragment() {
             else { binding.loginErrorText.setText("Wrong username or password") }*/
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    findNavController().navigate(R.id.action_login_to_createCat)
+                    findNavController().navigate(R.id.action_login_to_FirstFragment)
                 }
             }
         }
