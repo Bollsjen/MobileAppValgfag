@@ -27,6 +27,8 @@ import dk.bollsjen.wantedcats.repositories.*
 import dk.bollsjen.wantedcats.models.*
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View.GONE
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
@@ -129,17 +131,17 @@ class FirstFragment : Fragment() {
             }
 
             binding.fab.setOnClickListener {
-                val action1 =
-                    FirstFragmentDirections.actionFirstFragmentToCreateCat(Singleton.loginToken.id)
                 val action2 = FirstFragmentDirections.actionFirstFragmentToLogin()
 
-                if (Singleton.loginToken.id != 0) {
+                if (Firebase.auth.currentUser != null) {
+                    val action1 = FirstFragmentDirections.actionFirstFragmentToCreateCat(Firebase.auth.currentUser!!.email.toString())
                     findNavController().navigate(action1)
                 } else {
                     findNavController().navigate(action2)
                 }
             }
         }
+        catsViewModel.reload()
 
         //
         // Chips order by dimser
@@ -149,8 +151,70 @@ class FirstFragment : Fragment() {
         catsViewModel.sortReward = 0
         catsViewModel.sortName = 0
 
+        binding.filterRewardForm.visibility = View.GONE
+        binding.filterPlaceForm.visibility = View.GONE
+        binding.filterView.visibility = View.GONE
+
         var lowerLimit: Int = Int.MAX_VALUE
         var upperLimit: Int = 0
+
+        var spinnerAdapter: ArrayAdapter<String> = ArrayAdapter(requireActivity(), android.R.layout.simple_spinner_dropdown_item, arrayOf("All places..."))
+        binding.filterPlaceSpinner.adapter = spinnerAdapter
+
+        binding.filterCatsByPlace.setOnClickListener {
+            if(binding.filterCatsByPlace.isChecked){
+                binding.filterPlaceForm.visibility = View.VISIBLE
+                spinnerAdapter = ArrayAdapter(requireActivity(), android.R.layout.simple_spinner_dropdown_item, catsViewModel.getPlaces())
+                binding.filterPlaceSpinner.adapter = spinnerAdapter
+            }else{
+                binding.filterPlaceForm.visibility = View.GONE
+            }
+        }
+
+        binding.filterCatsByRewards.setOnClickListener {
+            if(binding.filterCatsByRewards.isChecked){
+                binding.filterRewardForm.visibility = View.VISIBLE
+            }else{
+                binding.filterRewardForm.visibility = View.GONE
+            }
+        }
+
+        binding.filterCatsRewardsResetBtn.setOnClickListener{
+            binding.filterRewardLowerLimit.setText(catsViewModel.getRewardLowerLimit().toString())
+            binding.filterRewardUpperLimit.setText(catsViewModel.getRewardUpperLimit().toString())
+            filterList()
+        }
+
+        binding.filterRewardFormSubmit.setOnClickListener {
+            filterList()
+        }
+
+        binding.showFilterChip.setOnClickListener {
+            if(binding.showFilterChip.isChecked){
+                binding.filterView.visibility = View.VISIBLE
+                binding.filterRewardLowerLimit.setText(catsViewModel.getRewardLowerLimit().toString())
+                binding.filterRewardUpperLimit.setText(catsViewModel.getRewardUpperLimit().toString())
+            }else{
+                binding.filterView.visibility = View.GONE
+                binding.filterPlaceForm.visibility = View.GONE
+                binding.filterRewardForm.visibility = View.GONE
+
+                binding.filterCatsByPlace.isChecked = false
+                binding.filterCatsByRewards.isChecked = false
+                binding.filterCatsByDates.isChecked = false
+            }
+        }
+
+        binding.filterPlaceSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if(binding.filterPlaceSpinner.selectedItem.toString() != "All places..."){
+                    filterList()
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?){
+            }
+        }
 
     binding.orderbyMyCatsChip.setOnClickListener {
         catsViewModel.myCats(Firebase.auth.currentUser?.email)
@@ -255,8 +319,6 @@ class FirstFragment : Fragment() {
                 catsViewModel.sortList()
             }
 
-        val spinnerAdapter: ArrayAdapter<String> = ArrayAdapter(activity, android.R.layout.simple_spinner_dropdown_item, R.id.filter_place_spinner)
-
             binding.searchBar.setOnQueryTextListener(object: OnQueryTextListener {
                 override fun onQueryTextChange(newText: String?): Boolean {
                     if(newText != "")
@@ -298,7 +360,7 @@ class FirstFragment : Fragment() {
             binding.textViewMessage.text = errorMessage
         }
 
-        catsViewModel.reload()
+
 
         binding.swiperefresh.setOnRefreshListener {
             catsViewModel.reload()
@@ -329,6 +391,43 @@ class FirstFragment : Fragment() {
         )
 
         return ColorStateList(states,colors)
+    }
+
+    fun filterList(){
+        var lower: Int = 0
+        var upper: Int = 0
+
+        var list: List<Cat> = emptyList()
+
+        var placesDims: List<Cat> = emptyList()
+        var rewardsDims: List<Cat> = emptyList()
+
+        if(binding.filterRewardLowerLimit.text.toString() == "")
+            lower = 0
+        else
+            lower = binding.filterRewardLowerLimit.text.toString().toInt()
+
+        if(binding.filterRewardUpperLimit.text.toString() == "")
+            upper = Int.MAX_VALUE
+        else
+            upper = binding.filterRewardUpperLimit.text.toString().toInt()
+
+        rewardsDims = catsViewModel.filterByRewards(lower, upper)
+        if(binding.filterPlaceSpinner.selectedItem.toString() != "All places..."){
+            placesDims = catsViewModel.getPlace(binding.filterPlaceSpinner.selectedItem.toString())
+        }else{
+            placesDims = catsViewModel.getPlace("")
+        }
+
+        for(placeItem in placesDims){
+            for(rewardItem in rewardsDims){
+                if(placeItem == rewardItem){
+                    list += placeItem
+                }
+            }
+        }
+
+        catsViewModel.repository.sortByList(list)
     }
 
 }

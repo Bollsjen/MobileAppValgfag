@@ -7,11 +7,12 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import dk.bollsjen.wantedcats.databinding.FragmentFirstBinding
 import dk.bollsjen.wantedcats.repositories.CatRepository
+import kotlinx.coroutines.*
 import java.util.*
 
 class CatsViewModel : ViewModel() {
     var repository = CatRepository()
-    var catsLiveData: LiveData<List<Cat>> = repository.catsLiveData
+    var catsLiveData: LiveData<List<Cat>?> = repository.catsLiveData
     val errorMessageLiveData: LiveData<String> = repository.errorMessageLiveData
     val updateMessageLiveData: LiveData<String> = repository.updateMessageLiveData
 
@@ -33,10 +34,20 @@ class CatsViewModel : ViewModel() {
             repository.getMyCats(email)
     }
 
-    fun getPlace(place: String?){
-        if(place != "")
-            repository.getPlace(place)
-        else reload()
+    fun getPlace(place: String?): List<Cat>{
+        var list: List<Cat> = emptyList()
+
+        if(place != ""){
+            for(item in repository.catsOriginalData.value!!){
+                if(item.place == place){
+                    list += item
+                }
+            }
+        }else{
+            list = repository.catsOriginalData.value!!
+        }
+
+        return list
     }
 
     fun resetSorting(list: List<Cat>){
@@ -47,11 +58,39 @@ class CatsViewModel : ViewModel() {
 
     }
 
+    fun getByPlace(place: String){
+
+    }
+
+    fun getPlaces() : Array<String>{
+        var list: List<String> = emptyList()
+
+        list += "All places..."
+
+        for(item in catsLiveData.value!!){
+            var isInside: Boolean = false
+            for(_item in list){
+                if(item.place == _item){
+                    isInside = true
+                }
+            }
+
+            if(!isInside){
+                list += item.place
+            }
+        }
+
+        val array: Array<String> = list.toTypedArray()
+        return array
+    }
+
     fun getRewardUpperLimit(): Int {
         var limit: Int = 0
-        for(item in repository.catsLiveData.value!!){
-            if(item.reward > limit){
-                limit = item.reward
+        if(repository.catsOriginalData.value != null){
+            for(item in repository.catsOriginalData.value!!){
+                if(item.reward > limit){
+                    limit = item.reward
+                }
             }
         }
 
@@ -60,19 +99,34 @@ class CatsViewModel : ViewModel() {
 
     fun getRewardLowerLimit(): Int {
         var limit: Int = Int.MAX_VALUE
-        for(item in repository.catsLiveData.value!!){
-            if(item.reward < limit){
-                limit = item.reward
+        if(repository.catsOriginalData.value != null){
+            for(item in repository.catsOriginalData.value!!){
+                if(item.reward < limit){
+                    limit = item.reward
+                }
             }
         }
 
         return limit
     }
 
-    fun filterByRewards(lower: Int, upper: Int){
+    fun filterByRewards(lower: Int, upper: Int) : List<Cat>{
+        var list: List<Cat> = emptyList()
+
+        for(item in repository.catsOriginalData.value!!){
+            if(item.reward >= lower && item.reward <= upper){
+                list += item
+            }
+        }
+
+        return list
+    }
+
+    fun filterByDate(lower: Int, upper: Int){
         var list: List<Cat>? = null
 
-        list = catsLiveData.value!!.filter { it.reward >= lower && it.reward <= upper}
+        list = repository.catsOriginalData.value!!.filter { it.date >= lower && it.date <= upper }
+
 
         repository.sortByList(list)
     }

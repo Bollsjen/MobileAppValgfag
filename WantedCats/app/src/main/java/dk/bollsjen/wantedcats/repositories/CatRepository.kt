@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import dk.bollsjen.wantedcats.models.Cat
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -22,7 +24,7 @@ class CatRepository {
         getPosts()
     }
 
-    fun getPosts(){
+    fun getPosts() = GlobalScope.async{
         catService.getAllCats().enqueue(object: Callback<List<Cat>>{
             override fun onFailure(call: Call<List<Cat>>, t: Throwable) {
                 errorMessageLiveData.postValue(t.message)
@@ -42,6 +44,33 @@ class CatRepository {
                 }
             }
         })
+    }
+
+    fun returnPosts() : Sequence<List<Cat>> = sequence  {
+        var list: List<Cat> = emptyList()
+        catService.getAllCats().enqueue(object: Callback<List<Cat>>{
+            override fun onFailure(call: Call<List<Cat>>, t: Throwable) {
+                errorMessageLiveData.postValue(t.message)
+                list = emptyList<Cat>()
+                Log.d("FISKERLARS1", t.message!!)
+            }
+
+            override fun onResponse(call: Call<List<Cat>>, response: Response<List<Cat>>) {
+                if(response.isSuccessful){
+                    val b: List<Cat>? =response.body()
+                    list = b!!
+                    Log.d("SØREN", b.toString())
+                    errorMessageLiveData.postValue("")
+                }else{
+                    val message =response.code().toString() + " " +response.message()
+                    errorMessageLiveData.postValue(message)
+                    list = emptyList<Cat>()
+                    Log.d("FISKERLARS1", message)
+                }
+            }
+        })
+
+        yield (list)
     }
 
     fun sortByList(b: List<Cat>?){

@@ -104,19 +104,22 @@
                     android:id="@+id/filter_cats_by_rewards"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="By Rewards"/>
+                    android:checkable="true"
+                    android:text="By Rewards" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/filter_cats_by_place"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="By Place"/>
+                    android:checkable="true"
+                    android:text="By Place" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/filter_cats_by_dates"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="By Dates"/>
+                    android:checkable="true"
+                    android:text="By Dates" />
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 
@@ -143,13 +146,20 @@
                 android:inputType="numberDecimal" />
 
             <Button
+                android:id="@+id/filter_cats_rewards_reset_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="reset" />
+
+            <Button
                 android:id="@+id/filter_reward_form_submit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="filter" />
+                android:text="apply" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/filter_place_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
