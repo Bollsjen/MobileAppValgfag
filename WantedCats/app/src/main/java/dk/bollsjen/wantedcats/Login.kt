@@ -1,6 +1,7 @@
 package dk.bollsjen.wantedcats
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,6 +54,8 @@ class Login : Fragment() {
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     findNavController().navigate(R.id.action_login_to_FirstFragment)
+                }else{
+                    binding.loginErrorText.text = task.exception!!.message.toString()
                 }
             }
         }
