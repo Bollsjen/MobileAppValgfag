@@ -357,7 +357,8 @@ class FirstFragment : Fragment() {
 
 
         catsViewModel.errorMessageLiveData.observe(viewLifecycleOwner) { errorMessage ->
-            binding.textViewMessage.text = errorMessage
+            binding.errorText.text = errorMessage
+            Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_LONG).show()
         }
 
 

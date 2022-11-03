@@ -22,7 +22,7 @@ public open class MyAdapter(
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
             //.inflate(R.layout.list_item_simple, viewGroup, false)
-            .inflate(R.layout.list_item_card, viewGroup, false)
+            .inflate(R.layout.cat_card, viewGroup, false)
         return MyViewHolder(view, onItemClicked)
     }
 

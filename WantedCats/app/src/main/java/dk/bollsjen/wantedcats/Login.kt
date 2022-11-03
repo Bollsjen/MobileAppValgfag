@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -56,6 +57,7 @@ class Login : Fragment() {
                     findNavController().navigate(R.id.action_login_to_FirstFragment)
                 }else{
                     binding.loginErrorText.text = task.exception!!.message.toString()
+                    Snackbar.make(binding.root, task.exception!!.message.toString(), Snackbar.LENGTH_LONG).show()
                 }
             }
         }

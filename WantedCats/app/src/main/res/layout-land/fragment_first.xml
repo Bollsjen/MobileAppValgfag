@@ -191,7 +191,7 @@
             tools:context=".FirstFragment">
 
             <TextView
-                android:id="@+id/textView_message"
+                android:id="@+id/error_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
