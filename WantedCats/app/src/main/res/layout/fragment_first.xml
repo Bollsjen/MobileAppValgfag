@@ -51,7 +51,7 @@
                     android:id="@+id/orderby_nothing_chip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="   Clear ordering" />
+                    android:text="Clear ordering" />
                 <!--style="@style/Widget.MaterialComponents.Chip.Filter"-->
 
                 <com.google.android.material.chip.Chip

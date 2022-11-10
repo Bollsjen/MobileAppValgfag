@@ -3,7 +3,10 @@ package dk.bollsjen.wantedcats
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +23,8 @@ import dk.bollsjen.wantedcats.models.Cat
 import dk.bollsjen.wantedcats.models.CatsViewModel
 import java.io.File
 import java.io.FileInputStream
+import java.lang.Exception
+import java.util.*
 
 
 class CreateCat : Fragment() {
@@ -27,11 +32,9 @@ class CreateCat : Fragment() {
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
     private val storage = Firebase.storage
-    private var storageRef = storage.reference
-    var imagesRef: StorageReference? = storageRef.child("images")
-    var spaceRef = storageRef.child("images/space.jpg")
 
     var selectedImageUri: Uri? = null
+    val REQUEST_CODE = 200
 
 
     private val catsViewModel: CatsViewModel by activityViewModels()
@@ -61,27 +64,37 @@ class CreateCat : Fragment() {
                 userId = ""
             }
 
-            /*val theRef = storageRef.child()
-            val uploadTask
-            val stream = FileInputStream(File(selectedImageUri.toString()))
+            try{
+                /*val storageRef = storage.reference
+                val theRef = storageRef.child(UUID.randomUUID().toString()+"---wanted-cats---"+name)
+                val imgFile = File(selectedImageUri.toString())
+                val stream = FileInputStream(imgFile)*/
+                /*val uploadTask = theRef.putStream(stream)
 
-            uploadTask = mountainsRef.putStream(stream)
-            uploadTask.addOnFailureListener {
-                // Handle unsuccessful uploads
-            }.addOnSuccessListener { taskSnapshot ->
-                // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-                // ...
-            }*/
+                uploadTask.addOnFailureListener {
+                    // Handle unsuccessful uploads
+                }.addOnSuccessListener { taskSnapshot ->
+                    // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+                    // ...
+                }*/
 
-            val cat: Cat = Cat(0,name, desc,place,reward,userId,currentDate,"")
+                val cat: Cat = Cat(0,name, desc,place,reward,userId,currentDate,"")
 
-            catsViewModel.add(cat)
-            findNavController().navigate(R.id.action_createCat_to_FirstFragment)
+                catsViewModel.add(cat)
+                findNavController().navigate(R.id.action_createCat_to_FirstFragment)
+            }catch (e: Exception){
+                binding.createCatErrorMessage.text = e.message
+            }
         }
 
         binding.createCatBackToCatList.setOnClickListener{
             findNavController().navigate(R.id.action_createCat_to_FirstFragment)
         }
+
+        binding.createCatUploadCat.visibility = View.GONE
+        /*binding.createCatUploadCat.setOnClickListener{
+            chooseImage()
+        }*/
     }
 
     override fun onDestroyView() {
@@ -90,26 +103,22 @@ class CreateCat : Fragment() {
     }
 
     fun chooseImage(){
-        val i = Intent()
-        i.type = "image/*"
-        i.action = Intent.ACTION_GET_CONTENT
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        intent.type = "image/*"
 
-        startActivityForResult(Intent.createChooser(i, "Select Picture"), 200);
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
-
-            // compare the resultCode with the
-            // SELECT_PICTURE constant
-            if (requestCode == 200) {
-                // Get the url of the image from data
-                selectedImageUri = data?.data
-                if (null != selectedImageUri) {
-                    // update the preview image in the layout
-                    //binding.createCatImage.setImageURI(selectedImageUri)
+            data?.data?.let { uri ->
+                Log.d("IMAGEUPLOADDIMS", uri.toString())
+                requireContext().contentResolver.openInputStream(uri).use { stream ->
+                    //this is where the crash happens
                 }
             }
+        }else{
+            binding.createCatErrorMessage.text = "ERROR";
         }
     }
 }

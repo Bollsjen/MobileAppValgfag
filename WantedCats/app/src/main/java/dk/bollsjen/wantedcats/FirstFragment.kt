@@ -129,16 +129,15 @@ class FirstFragment : Fragment() {
 
                 binding.recyclerView.adapter = adapter
             }
+        }
+        binding.fab.setOnClickListener {
+            val action2 = FirstFragmentDirections.actionFirstFragmentToLogin()
 
-            binding.fab.setOnClickListener {
-                val action2 = FirstFragmentDirections.actionFirstFragmentToLogin()
-
-                if (Firebase.auth.currentUser != null) {
-                    val action1 = FirstFragmentDirections.actionFirstFragmentToCreateCat(Firebase.auth.currentUser!!.email.toString())
-                    findNavController().navigate(action1)
-                } else {
-                    findNavController().navigate(action2)
-                }
+            if (Firebase.auth.currentUser != null) {
+                val action1 = FirstFragmentDirections.actionFirstFragmentToCreateCat(Firebase.auth.currentUser!!.email.toString())
+                findNavController().navigate(action1)
+            } else {
+                findNavController().navigate(action2)
             }
         }
         catsViewModel.reload()

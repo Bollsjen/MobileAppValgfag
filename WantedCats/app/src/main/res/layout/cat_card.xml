@@ -25,12 +25,8 @@
             android:id="@+id/item_card_cat_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:srcCompat="@drawable/fui_ic_github_white_24dp"
             tools:srcCompat="@tools:sample/avatars" />
-
-        <Space
-            style="#ffffff"
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
