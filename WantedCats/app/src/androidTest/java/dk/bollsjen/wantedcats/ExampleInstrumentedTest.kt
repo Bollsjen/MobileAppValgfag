@@ -1,9 +1,14 @@
 package dk.bollsjen.wantedcats
 
+import android.content.Context
 import android.view.View
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
 import androidx.test.espresso.ViewAction
+import androidx.test.espresso.ViewAssertion
 import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.platform.app.InstrumentationRegistry
@@ -31,6 +36,10 @@ class ExampleInstrumentedTest {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("dk.bollsjen.wantedcats", appContext.packageName)
+
+        openActionBarOverflowOrOptionsMenu(
+            ApplicationProvider.getApplicationContext<Context>())
+
 
         onView(ViewMatchers.withId(R.id.show_filter_chip)).perform(ViewActions.click())
 
