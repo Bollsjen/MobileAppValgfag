@@ -40,15 +40,12 @@ class ExampleInstrumentedTest {
         openActionBarOverflowOrOptionsMenu(
             ApplicationProvider.getApplicationContext<Context>())
 
-
         onView(ViewMatchers.withId(R.id.show_filter_chip)).perform(ViewActions.click())
-
-        pause(2000)
 
         onView(ViewMatchers.withId(R.id.filter_cats_by_rewards)).perform(ViewActions.click())
 
 
-
+        pause(500)
         onView(ViewMatchers.withId(R.id.filter_reward_lower_limit)).perform(ViewActions.typeText("150"))
         onView(ViewMatchers.withId(R.id.filter_reward_form_submit)).perform(ViewActions.click())
 
